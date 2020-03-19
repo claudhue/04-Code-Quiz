@@ -6,32 +6,26 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="style.css" rel="stylesheet">
     <script defer src="script.js"></script>
-
     <title>Code Quiz</title>
 </head>
 <body>
-    <div id="timer">
-        <h2>Timer</h2>
-        <p id="TimerDisplay">00:30</p>
-        </div>
-    <div class="container">
-        <div id="question-container" class="hide">
-            <div id="question">Question:</div>
-            <ol id="answer-buttons" class="answer-btns">
-               <li><button class="btn">Answer1</button></li>
-               <li><button class="btn">Answer2</button></li>
-               <li><button class="btn">Answer3</button></li>
-               <li><button class="btn">Answer4</button></li>
-            </ol>
+    <div id="start-screen" style="display: block;"><h1>Scott Pilgrim VS The World Movie Quiz</h1><button onclick="startQuiz();quizQuestions()">Start!</button>
+    </div>
+    <div id="quiz-screen" style="display: none;">
+        <h1 class="time">counter</h1>
+        <div id="question-container">
+            <div id="question">Question</div>
+            <div id="answer-buttons" class="btn-grid">
+                <button class="btn">Answer 1</button>
+                <button class="btn">Answer 2</button>
+                <button class="btn">Answer 3</button>
+                <button class="btn">Answer 4</button>
+            </div>
         </div>
         <div class="controls">
-            <button id="start-btn" class="start-btn btn">Start</button>
             <button id="next-btn" class="next-btn btn hide">Next</button>
         </div>
     </div>
-    </div>
-    <div id="progress"></div>
-    <div id="score-container">
-    </div>
+<script src="script.js"></script>
 </body>
 </html>
