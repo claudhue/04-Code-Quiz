@@ -81,6 +81,10 @@ function selectAnswer(e) {
   if(userGuess === answer){
     currentQuestionIndex++;
     setNextQuestion();
+  } else {
+    secondsLeft -= 5;
+    currentQuestionIndex++;
+    setNextQuestion();
   }
 }
 
