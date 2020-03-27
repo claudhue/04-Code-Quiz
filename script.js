@@ -1,6 +1,11 @@
 var questionContainerElement = document.getElementById("question-container");
 var questionElement = document.getElementById("question");
 var answerButtonsElement = document.getElementById("answer-buttons");
+//Time counter for quiz.
+var timeCounter = document.querySelector(".time");
+//Seconds for timer.
+var secondsLeft = 60;
+var currentQuestionIndex = 0;
 
 //Start Quiz
 function startQuiz() {
@@ -10,6 +15,8 @@ function startQuiz() {
   } else {
     startScreen.style.display = "none";
   }
+
+  setTime();
 }
 
 function quizQuestions() {
@@ -21,12 +28,6 @@ function quizQuestions() {
   }
   setNextQuestion();
 }
-
-//Time counter for quiz.
-var timeCounter = document.querySelector(".time");
-
-//Seconds for timer.
-var secondsLeft = 60;
 
 function setTime() {
   var timerInterval = setInterval(function() {
@@ -40,14 +41,13 @@ function setTime() {
   }, 1000);
 }
 
-setTime();
+// setTime();
 //When timer reaches 0.
 function timeout() {
   var timeOutHTML = "<h1><center>Results</center></h1>";
   var element = document.getElementById("quiz-screen");
   element.innerHTML = timeOutHTML;
 }
-
 //Questions
 function showQuestion(question) {
   questionElement.innerText = question.question;
@@ -62,7 +62,7 @@ function showQuestion(question) {
 
 function setNextQuestion() {
   resetState();
-  showQuestion(currentQuestionIndex);
+  showQuestion(questions[currentQuestionIndex]);
 }
 
 function resetState() {
@@ -73,8 +73,15 @@ function resetState() {
 
 function selectAnswer(e) {
   const selectedButton = e.target;
-  const correct = selectedButton.dataset.correct;
-  Array.from(answerButtonsElement.children);
+  console.log(selectedButton)
+  const userGuess = selectedButton.innerText;
+  const answer = questions[currentQuestionIndex].correctAns;
+  // Array.from(answerButtonsElement.children);
+  console.log(userGuess, answer)
+  if(userGuess === answer){
+    currentQuestionIndex++;
+    setNextQuestion();
+  }
 }
 
 var questions = [
@@ -85,7 +92,8 @@ var questions = [
       { text: "Muck-Man", correct: false },
       { text: "Get-Man", correct: false },
       { text: "Puck-Man", correct: true }
-    ]
+    ],
+    correctAns: "Puck-Man"
   },
   {
     question: "2. Scott’s ‘Zero’ T-Shirt Is A Reference To A Song By ?",
@@ -94,7 +102,8 @@ var questions = [
       { text: "Radiohead", correct: false },
       { text: "Sex Bob-Omb", correct: false },
       { text: "The Cranberries", correct: false }
-    ]
+    ],
+    correctAns: "The Smashing Pumpkins"
   },
   {
     question: "3. When Did Scott Date Kim ?",
@@ -103,7 +112,8 @@ var questions = [
       { text:  "College", correct: false },
       { text:  "Highschool", correct: true },
       { text: "Elementary School", correct: false }
-    ]
+    ],
+    correctAns: "Highschool"
   },
   {
     question: "4. What Tea Does Ramona Choose For Herself And Scott ?",
@@ -112,23 +122,19 @@ var questions = [
       { text: "Raspberry", correct: false },
       { text: "Ginseng", correct: false },
       { text: "Sleepy Time", correct: true }
-    ]
+    ],
+    correctAns: "Sleepy Time"
   },
   {
-    question: "5. Who Is The Lead Singer Of The Band <i>The Clash at Demonhead<i> ?",
+    question: "5. Who Is The Lead Singer Of The Band The Clash At Demonhead ?",
     answer: [
       { text: "Knives Chau", correct: false },
       { text: "Envy Adams",correct: true },
       { text: "Gideon",  correct: false },
       { text: "Todd Ingram", correct: false }
-    ]
+    ],
+    correctAns: "Envy Adams"
   }
 ];
 
-var nextButton = document.getElementById("next-btn");
-var currentQuestionIndex = questions[0];
 
-nextButton.addEventListener("click", () => {
-  currentQuestionIndex++;
-  setNextQuestion();
-});
