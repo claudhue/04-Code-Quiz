@@ -1,8 +1,10 @@
 var questionContainerElement = document.getElementById("question-container");
 var questionElement = document.getElementById("question");
 var answerButtonsElement = document.getElementById("answer-buttons");
+
 //Time counter for quiz.
 var timeCounter = document.querySelector(".time");
+
 //Seconds for timer.
 var secondsLeft = 60;
 var currentQuestionIndex = 0;
@@ -16,6 +18,7 @@ function startQuiz() {
     startScreen.style.display = "none";
   }
 
+//start timer
   setTime();
 }
 
@@ -41,15 +44,17 @@ function setTime() {
   }, 1000);
 }
 
-// setTime();
-//When timer reaches 0.
+//When timer reaches 0
 function timeout() {
-  var timeOutHTML = "<h1><center>Results</center></h1>";
+  var timeOutHTML = `<h1><center>Results</center></h1>`;
   var element = document.getElementById("quiz-screen");
   element.innerHTML = timeOutHTML;
 }
 //Questions
 function showQuestion(question) {
+  if(question === undefined) {
+    timeout()
+  }
   questionElement.innerText = question.question;
   question.answer.forEach(answer => {
     const button = document.createElement("button");
@@ -63,6 +68,7 @@ function showQuestion(question) {
 function setNextQuestion() {
   resetState();
   showQuestion(questions[currentQuestionIndex]);
+  console.log(localStorage.getItem("name"))
 }
 
 function resetState() {
@@ -76,7 +82,6 @@ function selectAnswer(e) {
   console.log(selectedButton)
   const userGuess = selectedButton.innerText;
   const answer = questions[currentQuestionIndex].correctAns;
-  // Array.from(answerButtonsElement.children);
   console.log(userGuess, answer)
   if(userGuess === answer){
     currentQuestionIndex++;
@@ -85,7 +90,7 @@ function selectAnswer(e) {
     secondsLeft -= 5;
     currentQuestionIndex++;
     setNextQuestion();
-  }
+  } 
 }
 
 var questions = [
